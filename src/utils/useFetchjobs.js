@@ -20,9 +20,9 @@ const reducer = (state, action) => {
     case MAKE_REQUEST:
       return { loading: true, jobs: [] };
     case GET_DATA:
-      return { ...state, loading: false, jobs: payload };
+      return { ...state, loading: false, jobs: payload.jobs };
     case ERROR:
-      return { ...state, loading: false, error: payload, jobs: [] };
+      return { ...state, loading: false, error: payload.error, jobs: [] };
     default:
       return state;
   }
@@ -31,17 +31,22 @@ export default (params, page) => {
   const intialState = { jobs: [], loading: true };
   const [state, dispatch] = useReducer(reducer, intialState);
   useEffect(() => {
+    const cancelToken = axios.CancelToken.source();
     dispatch({ type: MAKE_REQUEST });
     axios
       .get(baseUrl, {
         params: { markdown: true, page: page, ...params },
       })
       .then((res) => {
-        dispatch({ type: GET_DATA, payload: res.data });
+        dispatch({ type: GET_DATA, payload: { jobs: res.data } });
       })
       .catch((err) => {
-        dispatch({ type: GET_DATA, payload: err });
+        if (axios.isCancel(err)) return;
+        dispatch({ type: ERROR, payload: { error: err } });
       });
+    return () => {
+      cancelToken.cancel();
+    };
   }, [params, page]);
   return state;
 };
