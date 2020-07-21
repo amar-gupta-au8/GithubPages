@@ -1,9 +1,11 @@
-import React from 'react';
+/* eslint-disable react/jsx-no-undef */
+import React, { useState } from 'react';
 import { Card, Badge, Button, Collapse } from 'react-bootstrap';
 import ReactMarkdown from 'react-markdown';
 const Job = ({ job }) => {
+  const [open, setOpen] = useState(false);
   return (
-    <Card>
+    <Card className='mb-3'>
       <Card.Body>
         <div className='d-flex justify-content-between'>
           <div>
@@ -32,9 +34,11 @@ const Job = ({ job }) => {
           />
         </div>
         <Card.Text>
-          <Button variant='primary'>View deatils</Button>
+          <Button onClick={() => setOpen(!open)} variant='primary'>
+            {!open ? 'View deatils' : 'Hide Details'}
+          </Button>
         </Card.Text>
-        <Collapse>
+        <Collapse in={open}>
           <div className='mt-4'>
             <ReactMarkdown source={job.description} />
           </div>
