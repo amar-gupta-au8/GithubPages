@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Badge } from 'react-bootstrap';
+import { Card, Badge, Button, Collapse } from 'react-bootstrap';
 import ReactMarkdown from 'react-markdown';
 const Job = ({ job }) => {
   return (
@@ -31,6 +31,14 @@ const Job = ({ job }) => {
             src={job.company_logo}
           />
         </div>
+        <Card.Text>
+          <Button variant='primary'>View deatils</Button>
+        </Card.Text>
+        <Collapse>
+          <div className='mt-4'>
+            <ReactMarkdown source={job.description} />
+          </div>
+        </Collapse>
       </Card.Body>
     </Card>
   );
