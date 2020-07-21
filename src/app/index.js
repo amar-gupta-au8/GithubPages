@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import useFetchJobs from '../utils/useFetchjobs';
 import { Container } from 'react-bootstrap';
