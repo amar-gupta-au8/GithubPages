@@ -4,6 +4,8 @@ import useFetchJobs from '../../utils/useFetchjobs';
 import { Container } from 'react-bootstrap';
 import Job from '../../components/Job';
 import JobsPagination from '../../components/JobPagination';
+import ContentLoader from 'react-content-loader'
+ 
 
 const Home = () => {
   const [params, setParams] = useState({});
@@ -13,7 +15,7 @@ const Home = () => {
     <Container className='my-4'>
       <h1>Github Jobs</h1>
       <JobsPagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
-      {loading && <h1>Loading...</h1>}
+      {loading && <ContentLoader />}
       {error && <h1>error... Try refreshing</h1>}
       {jobs.map((job) => (
         <Job key={job.id} job={job} />
