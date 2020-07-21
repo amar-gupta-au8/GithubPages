@@ -12,12 +12,13 @@ const Home = () => {
   return (
     <Container className='my-4'>
       <h1>Github Jobs</h1>
-      <JobsPagination page={page} setPAge={setPage} />
+      <JobsPagination page={page} setPage={setPage} hasNextPage={true} />
       {loading && <h1>Loading...</h1>}
       {error && <h1>error... Try refreshing</h1>}
       {jobs.map((job) => (
         <Job key={job.id} job={job} />
       ))}
+      
     </Container>
   );
 };
