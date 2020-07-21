@@ -3,7 +3,7 @@ import axios from 'axios';
 
 //=> BAse url
 const baseUrl =
-  'https://jobs.github.com/positions.json';
+  'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json';
 
 //=>Actions
 const ACTIONS = {
