@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import useFetchJobs from '../../utils/useFetchjobs';
 import { Container } from 'react-bootstrap';
 import Job from '../../components/Job';
 import JobsPagination from '../../components/JobPagination';
-import ContentLoader from 'react-content-loader'
- 
+import ContentLoader from 'react-content-loader';
 
 const Home = () => {
   const [params, setParams] = useState({});
@@ -15,7 +14,13 @@ const Home = () => {
     <Container className='my-4'>
       <h1>Github Jobs</h1>
       <JobsPagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
-      {loading && <ContentLoader />}
+      {loading && (
+        <Fragment>
+          <ContentLoader />
+          <ContentLoader />
+          <ContentLoader />
+        </Fragment>
+      )}
       {error && <h1>error... Try refreshing</h1>}
       {jobs.map((job) => (
         <Job key={job.id} job={job} />
